@@ -6,6 +6,7 @@ spec:
   containers:
   - name: nginx
     image: nginx
+    imagePullPolicy: Always
     resources:
       requests:
         cpu: "100m"
