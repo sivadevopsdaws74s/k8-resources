@@ -4,5 +4,5 @@ metadata:
   name: course-config
 data:
   COURSE: DevOps
-  DURATION: 100HRS
+  DURATION: 120HRS
   TRAINER: SIVAKUMAR
