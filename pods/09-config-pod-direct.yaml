@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: config-pod-direct
+spec:
+  containers:
+  - name: config-pod-direct
+    image: nginx
+    envFrom:
+    - configMapRef:
+        name: course-config
