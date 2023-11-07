@@ -5,7 +5,7 @@ metadata:
   labels: # these labels belong to deployment
     app: nginx
 spec:
-  replicas: 3
+  replicas: 10
   selector:
     matchLabels: # these labels should match with pod
       app: nginx
