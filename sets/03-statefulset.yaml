@@ -32,3 +32,17 @@ spec:
       resources:
         requests:
           storage: 5Gi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx-stateless
+spec:
+  clusterIP: None #headless
+  selector:
+    app: nginx-stateful
+  ports:
+  - name: name-of-service-port
+    protocol: TCP
+    port: 80 # this port belongs to service
+    targetPort: http-web-svc # this port belongs to container
