@@ -5,16 +5,16 @@ metadata:
 spec:
   selector:
     matchLabels:
-      app: nginx # has to match .spec.template.metadata.labels
+      app: nginx-stateful # has to match .spec.template.metadata.labels
   serviceName: "nginx"
   replicas: 3 # by default is 1
   template:
     metadata:
       labels:
-        app: nginx # has to match .spec.selector.matchLabels
+        app: nginx-stateful # has to match .spec.selector.matchLabels
     spec:
       containers:
-      - name: nginx
+      - name: nginx-stateful
         image: nginx
         ports:
         - containerPort: 80
