@@ -1,0 +1,56 @@
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: ebs-sc
+provisioner: ebs.csi.aws.com
+volumeBindingMode: WaitForFirstConsumer
+parameters:
+  csi.storage.k8s.io/fstype: xfs
+  type: io1
+  iopsPerGB: "50"
+  encrypted: "true"
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: ebs-dynamic-pvc
+spec:
+  storageClassName: "ebs-sc"
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 4Gi
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-deployment
+  labels: # these labels belong to deployment
+    app: nginx
+spec:
+  replicas: 1
+  selector:
+    matchLabels: # these labels should match with pod
+      app: nginx
+      project: roboshop
+      component: frontend
+  template: # this is the pod definition
+    metadata:
+      labels:
+        app: nginx
+        project: roboshop
+        component: frontend
+    spec:
+      containers:
+      - name: nginx
+        image: nginx:1.14.2
+        ports:
+        - containerPort: 80
+        volumeMounts:
+        - mountPath: "/usr/share/nginx/html"
+          name: nginx-html
+      volumes:
+      - name: nginx-html
+        persistentVolumeClaim: # this is the PVC
+          claimName: ebs-dynamic-pvc
