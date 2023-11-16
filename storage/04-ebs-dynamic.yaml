@@ -29,7 +29,7 @@ metadata:
   labels: # these labels belong to deployment
     app: nginx
 spec:
-  replicas: 1
+  replicas: 3
   selector:
     matchLabels: # these labels should match with pod
       app: nginx
